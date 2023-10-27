@@ -7,11 +7,13 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from home.views import *
 
 urlpatterns = [
+    path('',home),
+    path('download/<uid>',download),
     path('handle/',HandleFileUpload.as_view()),
     path('admin/', admin.site.urls),
 ]
 
-if settings.DEBUG:
+if settings .DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
     
 urlpatterns+= staticfiles_urlpatterns()

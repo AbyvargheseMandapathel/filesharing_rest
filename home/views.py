@@ -1,6 +1,14 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import FileListSerializer
+from django.shortcuts import render
+from rest_framework.parsers import MultiPartParser
+
+def home(request):
+    return render(request, 'home.html')
+
+def download(request,uid):
+    return render(request, 'download.html',context={'uid':uid})
 
 class HandleFileUpload(APIView):
     def post(self, request):
@@ -12,7 +20,8 @@ class HandleFileUpload(APIView):
                 serializer.save()
                 return Response({
                     'status': 200,
-                    'message': 'File Success'
+                    'message': 'File Success',
+                    'data':serializer.data
                 })
 
             # If the serializer is not valid, return a response with error details
